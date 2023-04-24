@@ -1,9 +1,7 @@
-# React TypeScript Starter Pack
+# Phone Catalog
 
-To use this template click `Use this template`
+This is a Products catalog project.
 
-### Available Scripts
+This project was implemented by using React and Sass(SCSS) technologies, according to the following [design](https://www.figma.com/file/uEetgWenSRxk9jgiym6Yzp/Phone-catalog-redesign?node-id=1%3A2).
 
-`Deploy` - available to deploy your application to gh-pages
-
-`SCSS Preprocessor` - available to write your styles with modern style language
+Here you can see the demo of [Phone Catalog](https://juliiaap.github.io/Phone_Catalog_React/)
