@@ -9,7 +9,16 @@
   background: $whiteColor;
   border: 1px solid $elementsColor;
   padding: 32px 24px 24px;
+  transition: all 0.3s ease-in-out;
   
+  &:hover {
+    border-color: $primaryColor;
+    border-radius: 10px;
+
+    & .image-container {
+      transform: scale(1.05);
+    }
+  }
 
   &__link {
     text-decoration: none;
@@ -56,6 +65,8 @@
   max-width: fit-content;
   margin-bottom: 24px;
   align-self: center;
+
+  transition: all 0.3s ease-in-out;
 }
 
 .prices {

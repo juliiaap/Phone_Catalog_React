@@ -26,6 +26,10 @@ export const CategoryLink: FC<Props> = ({
           alt={title}
           className="category__image"
         />
+
+        <div className="glow-wrap">
+          <i className="glow"></i>
+        </div>
       </div>
 
       <p className="category__title">{title}</p>
