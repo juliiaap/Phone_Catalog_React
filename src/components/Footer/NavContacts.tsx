@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 export const NavContacts: FC = () => (
   <div className="footer__links-container">
     <a
-      href="https://github.com/juliiaap/react_phone-catalog"
+      href="https://github.com/juliiaap/Phone_Catalog_React"
       target="_blank"
       rel="noreferrer"
       className="nav-link-style footer__link"

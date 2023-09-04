@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, memo } from 'react';
 
 import './CartItem.scss';
 
@@ -8,29 +8,27 @@ type Props = {
   name: string;
   price: number;
   imageUrl: string,
-  onQuantityChange: (quantity: number, id: string) => void;
+  onIncreaseQuantity: (id: string) => void;
+  onDecreaseQuantity: (id: string) => void;
   onItemRemove: (id: string) => void;
 };
 
-export const CartItem: FC<Props> = ({
+export const CartItem: FC<Props> = memo(({
   id,
   quantity,
   name,
   price,
   imageUrl,
-  onQuantityChange,
+  onIncreaseQuantity,
+  onDecreaseQuantity,
   onItemRemove,
 }) => {
-  const [currentQuantity, setCurrentQuantity] = useState(quantity);
-
   const handleIncrease = () => {
-    setCurrentQuantity(prevState => prevState + 1);
-    onQuantityChange(quantity + 1, id);
+    onIncreaseQuantity(id);
   };
 
   const handleDicrease = () => {
-    setCurrentQuantity(prevState => prevState - 1);
-    onQuantityChange(quantity - 1, id);
+    onDecreaseQuantity(id);
   };
 
   return (
@@ -68,7 +66,7 @@ export const CartItem: FC<Props> = ({
             "
           />
           <p className="cart-item__count-quantity">
-            {currentQuantity}
+            {quantity}
           </p>
           <button
             type="button"
@@ -87,4 +85,4 @@ export const CartItem: FC<Props> = ({
       </p>
     </div>
   );
-};
+});

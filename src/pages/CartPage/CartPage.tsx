@@ -1,12 +1,15 @@
 import React, {
   FC,
   useContext,
+  useCallback,
+  useState,
+  useEffect,
 } from 'react';
 import { CartStorageContext } from '../../Context/CartStorageContext';
 import { BackButton } from '../../components/BackButton';
-import { CartItem } from '../../components/CartItem';
 import { CartTotal } from '../../components/CartTotal';
 import { NoResults } from '../../components/NoResults';
+import { CartList } from '../../components/CartList';
 import { CartProduct } from '../../types/CartProduct';
 
 import './CartPage.scss';
@@ -19,79 +22,70 @@ export const CartPage: FC = () => {
     getTotalCartItems,
   } = useContext(CartStorageContext);
 
-  const handleQuantityChange = (itemQuantity: number, itemId: string) => {
-    if (!setCartItems) {
-      return;
+  const [currentCartItems, setCurrentCartItems] =
+    useState<CartProduct[]>(cartItems);
+
+  const handleIncreaseQuantity = useCallback((itemId: string) => {
+    setCurrentCartItems((prevCart) =>
+      prevCart.map((item) =>
+        item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  }, []);
+
+  const handleDecreaseQuantity = useCallback((itemId: string) => {
+    setCurrentCartItems((prevCart) =>
+      prevCart.map((item) =>
+        item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
+      )
+    );
+  }, []);
+
+  const handleRemoveFromCart = useCallback((itemId: string) => {
+    setCurrentCartItems((prevCart) =>
+      prevCart.filter((item) => item.id !== itemId)
+    );
+  }, []);
+
+  useEffect(() => {
+    if (setCartItems) {
+      setCartItems(currentCartItems);
     }
-
-    const updatingItem = cartItems
-      .find((item: CartProduct) => item.id === itemId);
-
-    if (!updatingItem) {
-      return;
-    }
-
-    const startIndex = cartItems.indexOf(updatingItem);
-
-    const updatingCartItems = [...cartItems];
-
-    updatingCartItems
-      .splice(startIndex, 1, { ...updatingItem, quantity: itemQuantity });
-
-    setCartItems(updatingCartItems);
-  };
-
-  const handleRemoveFromCart = (itemId: string) => {
-    if (!setCartItems) {
-      return;
-    }
-
-    const filteredItems = cartItems
-      .filter((item: CartProduct) => item.id !== itemId);
-
-    setCartItems(filteredItems);
-  };
+  }, [currentCartItems]);
 
   return (
     <div
-      className="
+      className='
       main__cart-page
       main__cart-page--width
       products-page
       cart
-      "
+      '
     >
       <BackButton />
 
-      {!cartItems.length
-        ? (
-          <NoResults
-            title="Your cart is empty &#x1F614;"
-            imageUrl="./img/img/empty_cart.jpg"
-          />
-        ) : (
-          <div className="cart__info-container">
-            <div className="cart__items-container">
-              {cartItems.map((item: CartProduct) => (
-                <CartItem
-                  key={item.id}
-                  id={item.id}
-                  name={item.name}
-                  quantity={item.quantity}
-                  price={item.price}
-                  imageUrl={item.imageUrl}
-                  onQuantityChange={handleQuantityChange}
-                  onItemRemove={handleRemoveFromCart}
-                />
-              ))}
-            </div>
-
-            <CartTotal
-              totalPrice={getTotalPrice()}
-              totalItems={getTotalCartItems && getTotalCartItems()}
+      {!cartItems.length ? (
+        <NoResults
+          title='Your cart is empty &#x1F614;'
+          imageUrl='./img/img/empty_cart.jpg'
+        />
+      ) : (
+        <div className='cart__info-container'>
+          <div className='cart__items-container'>
+            <CartList
+              cartItems={cartItems}
+              onIncreaseQuantity={handleIncreaseQuantity}
+              onDecreaseQuantity={handleDecreaseQuantity}
+              onRemoveFromCart={handleRemoveFromCart}
             />
           </div>
-        )}
+
+          <CartTotal
+            totalPrice={getTotalPrice()}
+            totalItems={getTotalCartItems && getTotalCartItems()}
+          />
+        </div>
+      )}
     </div>
   );
 };

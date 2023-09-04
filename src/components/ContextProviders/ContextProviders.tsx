@@ -9,8 +9,8 @@ import { FavoritesStorageContext } from '../../Context/FavoritesStorageContext';
 import { CartStorageContext } from '../../Context/CartStorageContext';
 
 export const ContextProviders: FC = ({ children }) => {
-  const [cartItems, setCartItems] = useLocalStorage('Cart', []);
-  const [favourites, setFavourites] = useLocalStorage('Favourites', []);
+  const [cartItems, setCartItems] = useLocalStorage<CartProduct>('Cart', []);
+  const [favourites, setFavourites] = useLocalStorage<FavoriteProduct>('Favourites', []);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') || '';
