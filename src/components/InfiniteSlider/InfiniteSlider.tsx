@@ -5,7 +5,9 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 const SamplePrevArrow = ({
-  currentSlide, onClick, ...props
+  // lint rule disable due to mandatory 'slideCount' prop for slider lib
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  currentSlide, slideCount, onClick, ...props
 }: CustomArrowProps) => {
   return (
     <button
