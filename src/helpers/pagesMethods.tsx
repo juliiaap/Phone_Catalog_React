@@ -117,13 +117,15 @@ export const getSuggestedProducts = async (
   screen: string,
   capacity: string,
   itemId: string,
+  price: number,
+  color: string
 ) => {
   try {
     const products = await getProductsList();
 
     const suggestedProducts = products.filter((product: CatalogProduct) => {
       if (product.itemId !== itemId && (product.screen === screen
-        || product.capacity === capacity)) {
+        || product.capacity === capacity || product.price === price || product.color === color)) {
         return product;
       }
 

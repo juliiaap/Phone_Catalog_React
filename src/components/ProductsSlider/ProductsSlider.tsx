@@ -184,7 +184,7 @@ export const ProductsSlider: FC<Props> = ({
         onTouchMove={handleTouchMove}
         onTouchEnd={(event) => handleTouchEnd(event, currentSlider.current)}
       >
-        {!products.length
+        {!products
           ? (
             <Loader />
           ) : (

@@ -45,6 +45,8 @@ export const ProductDetailsPage: FC = () => {
         product.screen,
         product.currentCapacity,
         productId,
+        product.price,
+        product.color,
       );
 
       setSuggestedItems(suggested);
@@ -52,6 +54,9 @@ export const ProductDetailsPage: FC = () => {
       setIsLoading(false);
     } catch (error) {
       setIsError(true);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
