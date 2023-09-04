@@ -27,7 +27,7 @@ export const Footer: FC = () => {
         />
       </Link>
 
-      <NavContacts />
+      <NavContacts onClick={handleClick} />
 
       <div
         className="footer__back-to-top back-to-top"

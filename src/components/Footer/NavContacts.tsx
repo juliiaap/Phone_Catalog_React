@@ -1,26 +1,33 @@
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 
-export const NavContacts: FC = () => (
+type Props = {
+  onClick: () => void;
+};
+
+export const NavContacts: FC<Props> = ({ onClick }) => (
   <div className="footer__links-container">
-    <a
-      href="https://github.com/juliiaap/Phone_Catalog_React"
+    <Link
+      to="https://github.com/juliiaap/Phone_Catalog_React"
       target="_blank"
       rel="noreferrer"
       className="nav-link-style footer__link"
     >
       github
-    </a>
-    <a
-      href="/"
+    </Link>
+    <Link
+      to="/"
       className="nav-link-style footer__link"
+      onClick={onClick}
     >
       contacts
-    </a>
-    <a
-      href="/"
+    </Link>
+    <Link
+      to="/"
       className="nav-link-style footer__link"
+      onClick={onClick}
     >
       rights
-    </a>
+    </Link>
   </div>
 );
